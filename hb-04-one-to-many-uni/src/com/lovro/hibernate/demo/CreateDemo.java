@@ -7,7 +7,12 @@ import org.hibernate.cfg.Configuration;
 import com.lovro.hibernate.demo.entity.Instructor;
 import com.lovro.hibernate.demo.entity.InstructorDetail;
 
-
+/**
+ * Added javadoc
+ * 
+ * @author lovro.cvitas
+ *
+ */
 public class CreateDemo {
 
 	public static void main(String[] args) {
