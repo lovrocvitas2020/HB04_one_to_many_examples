@@ -1,0 +1,58 @@
+package com.lovro.hibernate.demo;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.lovro.hibernate.demo.entity.Instructor;
+import com.lovro.hibernate.demo.entity.InstructorDetail;
+
+
+public class GetInstructorDetailDemo {
+
+	public static void main(String[] args) {
+		
+		// create session factory
+		SessionFactory factory = new Configuration()
+									.configure("hibernate.cfg.xml")
+									.addAnnotatedClass(Instructor.class)
+									.addAnnotatedClass(InstructorDetail.class)
+									.buildSessionFactory();				
+				
+		// create session
+		Session session = factory.getCurrentSession();	
+		
+		try {
+			
+			session.beginTransaction();
+			
+			// get the instructor detail object
+			int theId = 2888;
+			InstructorDetail tempInstructorDetail = session.get(InstructorDetail.class, theId);
+			
+			// print the instructor detail
+			System.out.println("tempInstructorDetail: "+tempInstructorDetail);
+			
+			// print the associated instructor
+			System.out.println("the associatd instructor: "+tempInstructorDetail.getInstructor());
+			
+			// commit transaction
+			session.getTransaction().commit();
+			
+			 System.out.println("Done !");
+			
+		} 
+		catch(Exception exc) {
+			exc.printStackTrace();
+		}
+		finally {
+			// handle conection leak issue
+			session.close();
+			
+			factory.close();
+		}
+		
+		
+	}
+
+}
